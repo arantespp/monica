@@ -2,7 +2,7 @@ version: '3.8'
 
 networks:
         mysql:
-        # web:
+        web:
 
 volumes:
         monica:
@@ -21,6 +21,8 @@ services:
                         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
                 volumes:
                         - mysql:/var/lib/mysql
+                labels:
+                        - traefik.enable=false
         monica:
                 container_name: monica
                 image: monica
@@ -29,10 +31,9 @@ services:
                         - mysql
                 networks:
                         - mysql
-                        # - web
-                ports:
-                        - 8080:80
+                        - web
                 environment:
+                        - APP_URL=${MONICA_URL}
                         - DB_HOST=mysql
                         - DB_DATABASE=${MONICA_DB_DATABASE}
                         - DB_USERNAME=${MONICA_DB_USERNAME}
@@ -44,24 +45,23 @@ services:
                         - AWS_BUCKET=${AWS_BUCKET}
                 volumes:
                         - monica:/var/www/html/storage
-                # labels:
-                #         - traefik.enable=true
-                #         - traefik.http.routers.monica.rule=Host(`monica.arantespp.com`)
-                #         - traefik.http.routers.monica.entrypoints=web
-                
-        # traefik:
-        #         image: traefik:v2.5
-        #         restart: always
-        #         ports:
-        #                 - 80:80
-        #                 - 443:443
-        #                 - 8080:8080
-        #         networks:
-        #                 - web
-        #         volumes:
-        #                 - /var/run/docker.sock:/var/run/docker.sock
-        #                 - ~/traefik.yml:/etc/traefik/traefik.yml
-        #         container_name: traefik
-        #         depends_on:
-        #                 - monica
+                labels:
+                        - traefik.enable=true
+                        - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
+                        - traefik.http.routers.monica.entrypoints=web
+        traefik:
+                container_name: traefik
+                image: traefik:v2.5
+                restart: always
+                ports:
+                        - 80:80
+                        - 443:443
+                        - 8080:8080
+                networks:
+                        - web
+                volumes:
+                        - /var/run/docker.sock:/var/run/docker.sock
+                        - ~/traefik.yml:/etc/traefik/traefik.yml
+                depends_on:
+                        - monica
 

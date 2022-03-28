@@ -24,22 +24,17 @@ Copy the backup file to the MySQL container:
 docker cp ./backup/monica.sql mysql:/
 ```
 
-Access the container and restore the database:
+Access the container, create the database and the user, and,restore data:
 
 ```sh
 docker exec -it mysql bash
 mysql -u root -p"<password>"
 CREATE DATABASE monica;
-EXIT
-mysql -u root -p"<password>"  monica < monica.sql
-```
-
-Create Monica user and grant all privileges of `monica` database:
-
-```mysql
 CREATE USER 'monica'@'%' IDENTIFIED BY 'monicapassword';
-GRANT ALL PRIVILEGES ON monica.* TO 'monica'@'localhost';
+GRANT ALL PRIVILEGES ON monica.* TO 'monica'@'%';
 FLUSH PRIVILEGES;
+EXIT
+mysql -u monica -p"monicapassword" monica < monica.sql
 ```
 
 Add the following lines to the `.env` file:
