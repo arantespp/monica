@@ -1,0 +1,59 @@
+version: '3.8'
+
+networks:
+        mysql:
+        # web:
+
+services:
+        mysql:
+                container_name: mysql
+                image: mysql:5.7
+                restart: always
+                networks:
+                        - mysql
+                environment:
+                        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+                volumes:
+                        - /var/lib/mysql:/var/lib/mysql
+        monica:
+                container_name: monica
+                image: monica
+                restart: always
+                depends_on:
+                        - mysql
+                networks:
+                        - mysql
+                        # - web
+                ports:
+                        - 8080:80
+                environment:
+                        - DB_HOST=mysql
+                        - DB_DATABASE=${MONICA_DB_DATABASE}
+                        - DB_USERNAME=${MONICA_DB_USERNAME}
+                        - DB_PASSWORD=${MONICA_DB_PASSWORD}
+                        - DEFAULT_FILESYSTEM=s3
+                        - AWS_KEY=${AWS_ACCESS_KEY_ID}
+                        - AWS_SECRET=${AWS_SECRET_ACCESS_KEY}
+                        - AWS_REGION=us-east-1
+                        - AWS_BUCKET=${AWS_BUCKET}
+                # labels:
+                #         - traefik.enable=true
+                #         - traefik.http.routers.monica.rule=Host(`monica.arantespp.com`)
+                #         - traefik.http.routers.monica.entrypoints=web
+                
+        # traefik:
+        #         image: traefik:v2.5
+        #         restart: always
+        #         ports:
+        #                 - 80:80
+        #                 - 443:443
+        #                 - 8080:8080
+        #         networks:
+        #                 - web
+        #         volumes:
+        #                 - /var/run/docker.sock:/var/run/docker.sock
+        #                 - ~/traefik.yml:/etc/traefik/traefik.yml
+        #         container_name: traefik
+        #         depends_on:
+        #                 - monica
+
