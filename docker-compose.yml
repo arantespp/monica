@@ -32,7 +32,8 @@ services:
                         - mysql
                         - web
                 environment:
-                        - APP_URL=${MONICA_URL}
+                        - APP_ENV=production
+                        - APP_URL=https://${MONICA_URL}
                         - DB_HOST=mysql
                         - DB_DATABASE=${MONICA_DB_DATABASE}
                         - DB_USERNAME=${MONICA_DB_USERNAME}
