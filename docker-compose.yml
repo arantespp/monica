@@ -2,9 +2,7 @@ version: '3.8'
 
 networks:
         mysql:
-            external: false
         web:
-            external: true
 volumes:
         monica:
                 name: monica
