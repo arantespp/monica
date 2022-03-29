@@ -43,6 +43,7 @@ services:
                         - AWS_SECRET=${AWS_SECRET_ACCESS_KEY}
                         - AWS_REGION=us-east-1
                         - AWS_BUCKET=${AWS_BUCKET}
+                        - S3_PATH_STYLE=true
                 volumes:
                         - monica:/var/www/html/storage
                 labels:
