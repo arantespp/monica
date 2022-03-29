@@ -48,7 +48,8 @@ services:
                 labels:
                         - traefik.enable=true
                         - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
-                        - traefik.http.routers.monica.entrypoints=web
+                        - traefik.http.routers.monica.entrypoints=websecure
+                        - traefik.http.routers.monica.tls=true
         traefik:
                 container_name: traefik
                 image: traefik:v2.5

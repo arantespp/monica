@@ -4,3 +4,10 @@ entryPoints:
 
   websecure:
     address: ':443'
+
+api:
+  insecure: true
+  dashboard: true
+
+providers:
+  docker: {}
