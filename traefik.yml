@@ -15,6 +15,4 @@ certificatesResolvers:
     acme:
       email: pedro@arantespp.com
       storage: ./acme.json
-      httpChallenge:
-        # used during the challenge
-        entryPoint: web
+      tlsChallenge: {}
