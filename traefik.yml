@@ -9,3 +9,12 @@ providers:
   docker: {}
   file:
     watch: true
+
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: pedro@arantespp.com
+      storage: ./acme.json
+      httpChallenge:
+        # used during the challenge
+        entryPoint: web

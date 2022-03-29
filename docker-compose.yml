@@ -51,6 +51,7 @@ services:
                         - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
+                        - traefik.http.routers.monica.tls.certresolver=myresolver
         traefik:
                 container_name: traefik
                 image: traefik:v2.5
@@ -64,6 +65,7 @@ services:
                 volumes:
                         - /var/run/docker.sock:/var/run/docker.sock
                         - ./traefik.yml:/etc/traefik/traefik.yml
+                        - ./acme.json:/etc/traefik/acme.json
                 depends_on:
                         - monica
 
