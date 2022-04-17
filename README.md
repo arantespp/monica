@@ -4,6 +4,10 @@
 
 https://github.com/monicahq/monica/blob/main/.env.example
 
+## Monica App
+
+We've followed the instructions on [this example](https://github.com/monicahq/docker/tree/main/.examples/supervisor/fpm-alpine/app) to make Monica supervisor works to send automatic notifications and reminders.
+
 ## Initiate MySQL database
 
 ```sh
