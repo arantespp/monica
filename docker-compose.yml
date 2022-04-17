@@ -24,7 +24,7 @@ services:
                         - traefik.enable=false
         monica:
                 container_name: monica
-                build: ./app
+                build: ./monica-app
                 restart: always
                 depends_on:
                         - mysql
