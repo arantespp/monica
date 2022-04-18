@@ -52,6 +52,7 @@ services:
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
                         - traefik.http.routers.monica.tls.certresolver=myresolver
+                        - traefik.docker.network=web
         traefik:
                 container_name: traefik
                 image: traefik:v2.5
