@@ -14,5 +14,5 @@ certificatesResolvers:
   myresolver:
     acme:
       email: pedro@arantespp.com
-      storage: ./acme.json
+      storage: /etc/traefik/acme.json
       tlsChallenge: {}

@@ -53,6 +53,7 @@ services:
                         - traefik.http.routers.monica.tls=true
                         - traefik.http.routers.monica.tls.certresolver=myresolver
                         - traefik.http.services.monica.loadbalancer.server.port=80
+                        - traefik.docker.network=web
         traefik:
                 container_name: traefik
                 image: traefik:v2.5
