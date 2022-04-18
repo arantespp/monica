@@ -44,6 +44,14 @@ services:
                         - AWS_REGION=us-east-1
                         - AWS_BUCKET=${AWS_BUCKET}
                         - S3_PATH_STYLE=true
+                        - MAIL_MAILER=smtp
+                        - MAIL_HOST=email-smtp.us-east-1.amazonaws.com
+                        - MAIL_PORT=25
+                        - MAIL_USERNAME=${AWS_SES_SMTP_USERNAME}
+                        - MAIL_PASSWORD=${AWS_SES_SMTP_PASSWORD}
+                        - MAIL_ENCRYPTION=tls
+                        - MAIL_FROM_ADDRESS=${AWS_SES_EMAIL_ADDRESS}
+                        - MAIL_FROM_NAME="Monica"
                 volumes:
                         - monica:/var/www/html/storage
                 labels:
