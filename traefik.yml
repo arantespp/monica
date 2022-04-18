@@ -7,8 +7,6 @@ entryPoints:
 
 providers:
   docker: {}
-  file:
-    watch: true
 
 certificatesResolvers:
   myresolver:
