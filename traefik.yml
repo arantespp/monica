@@ -18,6 +18,10 @@ providers:
     exposedByDefault: false
     network: web
 
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true
+
 certificatesResolvers:
   letsencrypt:
     acme:

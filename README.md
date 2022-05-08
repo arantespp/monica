@@ -71,7 +71,7 @@ Don't forget to allow the fallback port on EC2 security group.
 Configure [Traefik dashboard secure](https://doc.traefik.io/traefik/operations/dashboard/) adding the following commands to the `.env` file:
 
 - `TRAEFIK_URL`: The URL of the Traefik dashboard. You should configure it on your DNS provider.
-- `TRAEFIK_BASIC_AUTH`: Execute the command `echo $(htpasswd -nb USER PASSWORD) | sed -e s/\\$/\\$\\$/g` to generate the basic auth credentials ([reference](https://stackoverflow.com/a/62177819/8786986)).
+- `TRAEFIK_BASIC_AUTH`: Execute the command `htpasswd -nb USER PASSWORD` to generate the basic auth credentials ([reference](https://stackoverflow.com/a/62177819/8786986)).
 
 ## Start
 
@@ -80,3 +80,9 @@ Once you've configured the environment variables, you can start the containers:
 ```sh
 ./start.sh
 ```
+
+## Troubleshooting
+
+### "The Compose file './docker-compose.yml' is invalid because:"
+
+Check if docker-compose replace all environment variables running the command `docker-compose config`.
