@@ -60,9 +60,9 @@ https://github.com/monicahq/monica/blob/main/.env.example
 
 ### Monica Fallback
 
-We've also created a fallback for Monica container to help us debug eventual issues. For example, if HTTPS Gateway Timeout occurs and Monica fallback is working, we can assume that the issue should be on Traefik.
+We've also created a fallback for Monica container to help us debug eventual issues. For example, if HTTPS Gateway Timeout occurs and Monica fallback is working, we can assume that the issue should be on [Traefik](#setup-traefik).
 
-Add `MONICA_FALLBACK_PORT` to the `.env` file. This way you can access Monica over HTTP on $MONICA_URL:$MONICA_FALLBACK_PORT.
+Add `MONICA_FALLBACK_PORT` to the `.env` file. This way you can access Monica over HTTP on `http://$MONICA_URL:$MONICA_FALLBACK_PORT`. You'll see the website without styles because Monica environment is production and it redirects to HTTPS the network requests.
 
 Don't forget to allow the fallback port on EC2 security group.
 
@@ -71,12 +71,12 @@ Don't forget to allow the fallback port on EC2 security group.
 Configure [Traefik dashboard secure](https://doc.traefik.io/traefik/operations/dashboard/) adding the following commands to the `.env` file:
 
 - `TRAEFIK_URL`: The URL of the Traefik dashboard. You should configure it on your DNS provider.
-- `TRAEFIK_BASIC_AUTH`: Execute the command `echo $(htpasswd -nb USER PASSWORD) | sed -e s/\\$/\\$\\$/g` to generate the basic auth credentials ((reference)[https://stackoverflow.com/a/62177819/8786986]).
+- `TRAEFIK_BASIC_AUTH`: Execute the command `echo $(htpasswd -nb USER PASSWORD) | sed -e s/\\$/\\$\\$/g` to generate the basic auth credentials ([reference](https://stackoverflow.com/a/62177819/8786986)).
 
 ## Start
 
 Once you've configured the environment variables, you can start the containers:
 
 ```sh
-sh start.sh
+./start.sh
 ```

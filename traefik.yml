@@ -19,7 +19,7 @@ providers:
     network: web
 
 certificatesResolvers:
-  myresolver:
+  letsencrypt:
     acme:
       email: pedro@arantespp.com
       storage: /etc/traefik/acme.json

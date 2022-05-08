@@ -65,7 +65,7 @@ services:
                         - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
-                        - traefik.http.routers.monica.tls.certresolver=myresolver
+                        - traefik.http.routers.monica.tls.certresolver=letsencrypt
         traefik:
                 container_name: traefik
                 image: traefik:v2.6
