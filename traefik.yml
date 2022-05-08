@@ -13,13 +13,16 @@ accessLog:
   filePath: /log/access-log.txt
 
 providers:
-  docker: {}
+  docker:
+    endpoint: 'unix:///var/run/docker.sock'
+    exposedByDefault: false
 
 certificatesResolvers:
   myresolver:
     acme:
       email: pedro@arantespp.com
       storage: /etc/traefik/acme.json
+      keyType: 'RSA4096'
       tlsChallenge: true
 
 api:
