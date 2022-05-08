@@ -5,6 +5,13 @@ entryPoints:
   websecure:
     address: ':443'
 
+log:
+  level: DEBUG
+  filePath: /log/traefik.log
+
+accessLog:
+  filePath: /log/access-log.txt
+
 providers:
   docker: {}
 
