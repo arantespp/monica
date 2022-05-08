@@ -1,2 +1,4 @@
 .env
 backup/monica.sql
+acme.json
+log/

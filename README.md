@@ -73,6 +73,13 @@ Configure [Traefik dashboard secure](https://doc.traefik.io/traefik/operations/d
 - `TRAEFIK_URL`: The URL of the Traefik dashboard. You should configure it on your DNS provider.
 - `TRAEFIK_BASIC_AUTH`: Execute the command `htpasswd -nb USER PASSWORD` to generate the basic auth credentials ([reference](https://stackoverflow.com/a/62177819/8786986)).
 
+Create `acme.json` file to store the ACME credentials:
+
+```sh
+touch acme.json
+chmod 600 acme.json
+```
+
 ## Start
 
 Once you've configured the environment variables, you can start the containers:

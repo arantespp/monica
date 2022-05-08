@@ -65,7 +65,6 @@ services:
                         - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
-                        - traefik.http.routers.monica.tls.domains.main=${MONICA_URL}
                         - traefik.http.routers.monica.tls.certresolver=letsencrypt
         traefik:
                 container_name: traefik
@@ -94,7 +93,6 @@ services:
                         - "traefik.http.routers.traefik-secure.rule=Host(`${TRAEFIK_URL}`)"
                         - "traefik.http.routers.traefik-secure.tls=true"
                         - "traefik.http.routers.traefik-secure.tls.certresolver=letsencrypt"
-                        - "traefik.http.routers.traefik-secure.tls.domains.main=${TRAEFIK_URL}"
                         - "traefik.http.routers.traefik-secure.service=api@internal"
                         - "traefik.http.middlewares.traefik-auth.basicauth.removeHeader=true"
                         - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_BASIC_AUTH}"
