@@ -3,6 +3,7 @@ version: '3.8'
 networks:
         mysql:
         web:
+        
 volumes:
         monica:
                 name: monica
@@ -60,6 +61,34 @@ services:
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
                         - traefik.http.routers.monica.tls.certresolver=myresolver
+        monica_insecure:
+                container_name: monica_insecure
+                image: monica:apache
+                restart: always
+                depends_on:
+                        - mysql
+                networks:
+                        - mysql
+                        - web
+                environment:
+                        - APP_ENV=production
+                        - APP_URL=http://${MONICA_URL}
+                        - DB_HOST=mysql
+                        - DB_DATABASE=${MONICA_DB_DATABASE}
+                        - DB_USERNAME=${MONICA_DB_USERNAME}
+                        - DB_PASSWORD=${MONICA_DB_PASSWORD}
+                        - DEFAULT_FILESYSTEM=s3
+                        - AWS_KEY=${AWS_ACCESS_KEY_ID}
+                        - AWS_SECRET=${AWS_SECRET_ACCESS_KEY}
+                        - AWS_REGION=us-east-1
+                        - AWS_BUCKET=${AWS_BUCKET}
+                        - S3_PATH_STYLE=true
+                volumes:
+                        - monica:/var/www/html/storage
+                labels:
+                        - traefik.enable=true
+                        - traefik.http.routers.monimonica_insecureca.rule=Host(`${MONICA_URL}`)
+                        - traefik.http.routers.monica_insecure.entrypoints=web
         traefik:
                 container_name: traefik
                 image: traefik:v2.5
@@ -76,6 +105,7 @@ services:
                         - ./acme.json:/etc/traefik/acme.json
                 depends_on:
                         - monica
+                        - monica_insecure
                 labels:
                         - traefik.http.routers.dashboard.rule=Host(`${TRAEFIK_URL}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
                         - traefik.http.routers.dashboard.service=api@internal
