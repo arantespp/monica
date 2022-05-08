@@ -92,7 +92,7 @@ services:
                         - traefik.http.routers.monica_fallback.entrypoints=web
         traefik:
                 container_name: traefik
-                image: traefik:v2.5
+                image: traefik:v2.6
                 restart: always
                 ports:
                         - 80:80
