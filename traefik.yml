@@ -14,3 +14,6 @@ certificatesResolvers:
       email: pedro@arantespp.com
       storage: /etc/traefik/acme.json
       tlsChallenge: {}
+
+api:
+  dashboard: true

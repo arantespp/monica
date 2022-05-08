@@ -31,6 +31,8 @@ services:
                 networks:
                         - mysql
                         - web
+                ports:
+                        - 80:9000
                 environment:
                         - APP_ENV=production
                         - APP_URL=https://${MONICA_URL}
@@ -46,7 +48,7 @@ services:
                         - S3_PATH_STYLE=true
                         - MAIL_MAILER=smtp
                         - MAIL_HOST=email-smtp.us-east-1.amazonaws.com
-                        - MAIL_PORT=25
+                        - MAIL_PORT=587
                         - MAIL_USERNAME=${AWS_SES_SMTP_USERNAME}
                         - MAIL_PASSWORD=${AWS_SES_SMTP_PASSWORD}
                         - MAIL_ENCRYPTION=tls
