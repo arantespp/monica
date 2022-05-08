@@ -1,14 +1,6 @@
 # Monica
 
-## Environment variables
-
-https://github.com/monicahq/monica/blob/main/.env.example
-
-## Monica App
-
-We've followed the instructions on [this example](https://github.com/monicahq/docker/tree/main/.examples/supervisor/fpm-alpine/app) to make Monica supervisor works to send automatic notifications and reminders.
-
-## Initiate MySQL database
+## Setup MySQL database
 
 ```sh
 docker-compose up mysql
@@ -58,9 +50,33 @@ SELECT id,first_name,google2fa_secret FROM users;
 UPDATE users SET google2fa_secret=NULL WHERE id=USER_ID;
 ```
 
+## Setup Monica
+
+We've followed the instructions on [this example](https://github.com/monicahq/docker/tree/main/.examples/supervisor/fpm-alpine/app) to make Monica supervisor works to send automatic notifications and reminders.
+
+## Environment variables
+
+https://github.com/monicahq/monica/blob/main/.env.example
+
+### Insecure Monica
+
+We've also created a insecure Monica container to help us debug eventual issues. For example, if HTTPS Gateway Timeout occurs and insecure Monica is working, we can assume that the issue should be on Traefik.
+
+Add `MONICA_INSECURE_PORT` to the `.env` file. This way you can access Monica over HTTP on $MONICA_URL:$MONICA_INSECURE_PORT.
+
+Don't forget to allow the port on EC2 security group.
+
 ## Setup Traefik
 
 Configure [Traefik dashboard secure](https://doc.traefik.io/traefik/operations/dashboard/) adding the following commands to the `.env` file:
 
 - `TRAEFIK_URL`: The URL of the Traefik dashboard. You should configure it on your DNS provider.
 - `TRAEFIK_BASIC_AUTH`: Execute the command `echo $(htpasswd -nb USER PASSWORD) | sed -e s/\\$/\\$\\$/g` to generate the basic auth credentials ((reference)[https://stackoverflow.com/a/62177819/8786986]).
+
+## Start
+
+Once you've configured the environment variables, you can start the containers:
+
+```sh
+sh start.sh
+```

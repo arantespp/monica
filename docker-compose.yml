@@ -3,7 +3,7 @@ version: '3.8'
 networks:
         mysql:
         web:
-        
+
 volumes:
         monica:
                 name: monica
@@ -70,8 +70,9 @@ services:
                 networks:
                         - mysql
                         - web
+                ports:
+                        - ${MONICA_INSECURE_PORT}:80
                 environment:
-                        - APP_ENV=production
                         - APP_URL=http://${MONICA_URL}
                         - DB_HOST=mysql
                         - DB_DATABASE=${MONICA_DB_DATABASE}
@@ -87,7 +88,7 @@ services:
                         - monica:/var/www/html/storage
                 labels:
                         - traefik.enable=true
-                        - traefik.http.routers.monimonica_insecureca.rule=Host(`${MONICA_URL}`)
+                        - traefik.http.routers.monica_insecure.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica_insecure.entrypoints=web
         traefik:
                 container_name: traefik
