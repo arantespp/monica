@@ -57,6 +57,7 @@ services:
                         - monica:/var/www/html/storage
                 labels:
                         - traefik.enable=true
+                        - traefik.docker.network=web
                         - traefik.http.routers.monica.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica.entrypoints=websecure
                         - traefik.http.routers.monica.tls=true
@@ -88,6 +89,7 @@ services:
                         - monica:/var/www/html/storage
                 labels:
                         - traefik.enable=true
+                        - traefik.docker.network=web
                         - traefik.http.routers.monica_fallback.rule=Host(`${MONICA_URL}`)
                         - traefik.http.routers.monica_fallback.entrypoints=web
         traefik:
