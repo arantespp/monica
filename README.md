@@ -57,3 +57,10 @@ use monica;
 SELECT id,first_name,google2fa_secret FROM users;
 UPDATE users SET google2fa_secret=NULL WHERE id=USER_ID;
 ```
+
+## Setup Traefik
+
+Configure [Traefik dashboard secure](https://doc.traefik.io/traefik/operations/dashboard/) adding the following commands to the `.env` file:
+
+- `TRAEFIK_URL`: The URL of the Traefik dashboard. You should configure it on your DNS provider.
+- `TRAEFIK_BASIC_AUTH`: Execute the command `echo $(htpasswd -nb USER PASSWORD) | sed -e s/\\$/\\$\\$/g` to generate the basic auth credentials ((reference)[https://stackoverflow.com/a/62177819/8786986]).

@@ -31,8 +31,6 @@ services:
                 networks:
                         - mysql
                         - web
-                ports:
-                        - 9000:80
                 environment:
                         - APP_ENV=production
                         - APP_URL=https://${MONICA_URL}
@@ -78,4 +76,8 @@ services:
                         - ./acme.json:/etc/traefik/acme.json
                 depends_on:
                         - monica
-
+                labels:
+                        - traefik.http.routers.dashboard.rule=Host(`${TRAEFIK_URL}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+                        - traefik.http.routers.dashboard.service=api@internal
+                        - traefik.http.routers.dashboard.middlewares=auth
+                        - traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_BASIC_AUTH}
