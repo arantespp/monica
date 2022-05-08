@@ -14,7 +14,7 @@ services:
         mysql:
                 container_name: mysql
                 image: mysql:5.7
-                restart: always
+                restart: unless-stopped
                 networks:
                         - mysql
                 environment:
@@ -26,7 +26,7 @@ services:
         monica:
                 container_name: monica
                 build: ./monica-app
-                restart: always
+                restart: unless-stopped
                 depends_on:
                         - mysql
                 networks:
@@ -64,7 +64,7 @@ services:
         monica_fallback:
                 container_name: monica_fallback
                 image: monica:apache
-                restart: always
+                restart: unless-stopped
                 depends_on:
                         - mysql
                 networks:
@@ -93,7 +93,7 @@ services:
         traefik:
                 container_name: traefik
                 image: traefik:v2.6
-                restart: always
+                restart: unless-stopped
                 ports:
                         - 80:80
                         - 443:443
@@ -109,6 +109,9 @@ services:
                         - monica_fallback
                 labels:
                         - traefik.http.routers.dashboard.rule=Host(`${TRAEFIK_URL}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+                        - traefik.http.routers.dashboard.entrypoints=websecure
                         - traefik.http.routers.dashboard.service=api@internal
                         - traefik.http.routers.dashboard.middlewares=auth
+                        - traefik.http.routers.dashboard.tls=true
+                        - traefik.http.routers.dashboard.tls.certresolver=myresolver
                         - traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_BASIC_AUTH}
