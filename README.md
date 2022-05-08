@@ -58,13 +58,13 @@ We've followed the instructions on [this example](https://github.com/monicahq/do
 
 https://github.com/monicahq/monica/blob/main/.env.example
 
-### Insecure Monica
+### Monica Fallback
 
-We've also created a insecure Monica container to help us debug eventual issues. For example, if HTTPS Gateway Timeout occurs and insecure Monica is working, we can assume that the issue should be on Traefik.
+We've also created a fallback for Monica container to help us debug eventual issues. For example, if HTTPS Gateway Timeout occurs and Monica fallback is working, we can assume that the issue should be on Traefik.
 
-Add `MONICA_INSECURE_PORT` to the `.env` file. This way you can access Monica over HTTP on $MONICA_URL:$MONICA_INSECURE_PORT.
+Add `MONICA_FALLBACK_PORT` to the `.env` file. This way you can access Monica over HTTP on $MONICA_URL:$MONICA_FALLBACK_PORT.
 
-Don't forget to allow the port on EC2 security group.
+Don't forget to allow the fallback port on EC2 security group.
 
 ## Setup Traefik
 
