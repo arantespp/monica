@@ -1,12 +1,15 @@
 version: '3.8'
 
+networks:
+        mysql:
+                external: true
+
 services:
         monica:
                 build: ../monica-app
                 restart: unless-stopped
                 networks:
                         - mysql
-                        - web
                 ports:
                         - ${MONICA_PORT}:80
                 environment:
