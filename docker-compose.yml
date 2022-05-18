@@ -2,6 +2,7 @@ version: '3.8'
 
 networks:
         mysql:
+                name: mysql
         web:
                 # Why we need the name https://stackoverflow.com/questions/60358862/network-different-than-defined-name-after-docker-compose
                 name: web
